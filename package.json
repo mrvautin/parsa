@@ -1,0 +1,35 @@
+{
+    "name": "parsa",
+    "version": "0.0.2",
+    "description": "Parsa ya data! An all purpose parser to parse or validate data.",
+    "main": "parsa.js",
+    "scripts": {
+        "test": "mocha test/index.js",
+        "build": "gulp deploy"
+    },
+    "keywords": [
+        "parse",
+        "date",
+        "email",
+        "ip address",
+        "helper",
+        "function"
+    ],
+    "author": "Mark Moffat",
+    "license": "MIT",
+    "devDependencies": {
+        "gulp": "^3.9.1",
+        "gulp-minify": "^1.0.0",
+        "mocha": "^3.5.0"
+    },
+    "dependencies": {
+        "run-sequence": "^2.1.0"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/mrvautin/parsa.git"
+    },
+    "bugs": {
+      "url": "https://github.com/mrvautin/parsa/issues"
+    }
+}
