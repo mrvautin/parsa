@@ -6,6 +6,8 @@
 - Validates IP (true/false)
 - Parses a URL query string into an Object
 - Validates Email address (true/false)
+- Extracts numbers and decimals from string
+- Extracts words from string
 
 ## Installation
 

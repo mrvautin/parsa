@@ -88,6 +88,9 @@
     }
 
     parsa.validateIp = function (ipAddress) {
+        if (typeof ipAddress !== 'string') {
+            throw new Error('IP address not supplied.');
+        }
         if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddress)) {
             return (true)
         }
@@ -95,6 +98,9 @@
     }
 
     parsa.parseQuery = function (url) {
+        if (typeof url !== 'string') {
+            throw new Error('URL not supplied.');
+        }
         const queryStringObject = {};
         url.replace(
             new RegExp("([^?=&]+)(=([^&]*))?", "g"),
@@ -105,11 +111,17 @@
     }
 
     parsa.validateEmail = function (email){
+        if (typeof email !== 'string') {
+            throw new Error('Email not supplied.');
+        }
         var re = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
         return re.test(email);
     }
 
     parsa.extractNum = function (string){
+        if (typeof string !== 'string') {
+            throw new Error('String not supplied.');
+        }
         const numbersAndDecimals = [];
         string.replace(
             new RegExp(/(?:\d*\.)?\d+/, "g"),
@@ -121,6 +133,12 @@
     }
 
     parsa.extractWords = function (string, words){
+        if (typeof string !== 'string') {
+            throw new Error('String not supplied.');
+        }
+        if (!Array.isArray(words)) {
+            throw new Error('Words array not supplied.');
+        }
         let splitWords = words.join("|");
         var reString = `(${splitWords})`;
         var re = new RegExp(reString,"gi");

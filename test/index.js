@@ -187,12 +187,26 @@ describe('Parsa Tests', function() {
         it('Success - String: This is a10 string with3.14decimals6 and numbers.', function() {
             assert.deepEqual([ '10', '3.14', '6' ], parsa.extractNum('This is a10 string with3.14decimals6 and numbers.'))
         });
+
+        it('Error - String: null', function() {
+            assert.throws(() => parsa.extractNum(), /String not supplied./);
+        });
     });
 
-    describe.only('extractWords', function() {
+    describe('extractWords', function() {
         it('Success - String: Thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsjfgjkfg', function() {
             var words = ['this', 'some', 'words'];
             assert.deepEqual(words, parsa.extractWords('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsjfgjkfg', words))
+        });
+
+        it('Error - String: null', function() {
+            var words = ['this', 'some', 'words'];
+            assert.throws(() => parsa.extractWords(words), /String not supplied./);
+        });
+
+        it('Error - Array: String', function() {
+            var words = 'word';
+            assert.throws(() => parsa.extractWords('Thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsjfgjkfg', words), /Words array not supplied./);
         });
     });
 });
