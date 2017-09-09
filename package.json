@@ -1,8 +1,9 @@
 {
     "name": "parsa",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Parsa ya data! An all purpose parser to parse or validate data.",
     "main": "parsa.js",
+    "private": false,
     "scripts": {
         "test": "mocha test/index.js",
         "build": "gulp deploy"
@@ -13,7 +14,12 @@
         "email",
         "ip address",
         "helper",
-        "function"
+        "function",
+        "regex",
+        "words",
+        "decimals",
+        "validate",
+        "extract"
     ],
     "author": "Mark Moffat",
     "license": "MIT",

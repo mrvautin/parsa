@@ -1,6 +1,36 @@
 # parsa
 
-dskdsldklss ds dkslkdsdkls ds
+`parsa` is an all purpose parser which can parse or validate the following:
+
+- String formatted (with format) dates into a Date Object
+- Validates IP (true/false)
+- Parses a URL query string into an Object
+- Validates Email address (true/false)
+- Extracts numbers and decimals from string
+- Extracts words from string
+
+## Installation
+
+#### Browser
+
+``` html
+<script type="text/javascript" src="dist/parsa.min.js" charset="utf-8"></script>
+<script>
+    console.log('parseDate: 20121125 = ', parsa.parseDate('20121125', 'YYYYMMDD'));
+</script>
+```
+
+##### CDN
+``` html
+<script type="text/javascript" src="https://cdn.rawgit.com/mrvautin/parsa/dist/parsa.min.js" charset="utf-8"></script>
+```
+
+#### Node
+
+``` javascript
+const parsa = require('parsa');
+parsa.parseDate('20121125', 'YYYYMMDD');
+```
 
 ## parseDate
 
@@ -66,3 +96,45 @@ parsa.validateEmail('hi@gmail.com')
 **Returns:**
 
 `true`
+
+## extractNum
+
+The `extractNum` function takes a string and returns an `array` of numbers/decimals found in that string.
+
+#### Usage
+
+``` javascript
+parsa.extractNum('This is a10 string with3.14decimals6 and numbers.')
+```
+
+**Returns:**
+
+``` javascript
+[
+    '10',
+    '3.14',
+    '6'
+]
+```
+
+## extractWords
+
+The `extractWords` function takes a string and an `array` of words and returns an `array` of matched words in the string.
+
+#### Usage
+
+``` javascript
+var words = ['this', 'some', 'words'];
+parsa.extractWords('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsjfgjkfg', words)
+```
+
+**Returns:**
+
+``` javascript
+[
+    'this',
+    'some',
+    'words'
+]
+```
+

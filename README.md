@@ -67,6 +67,7 @@ parsa.parseDate('20121125', 'YYYYMMDD')
 - `YYYYMMDD HH:MM`
 - `YYYYDDMM HH:MM`
 
+
 ## validateIp
 
 The `validateIp` function takes an IP address string and returns a `boolean` value whether it is valid or invalid.
@@ -113,3 +114,45 @@ parsa.validateEmail('hi@gmail.com')
 **Returns:**
 
 `true`
+
+## extractNum
+
+The `extractNum` function takes a string and returns an `array` of numbers/decimals found in that string.
+
+#### Usage
+
+``` javascript
+parsa.extractNum('This is a10 string with3.14decimals6 and numbers.')
+```
+
+**Returns:**
+
+``` javascript
+[
+    '10',
+    '3.14',
+    '6'
+]
+```
+
+## extractWords
+
+The `extractWords` function takes a string and an `array` of words and returns an `array` of matched words in the string.
+
+#### Usage
+
+``` javascript
+var words = ['this', 'some', 'words'];
+parsa.extractWords('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsjfgjkfg', words)
+```
+
+**Returns:**
+
+``` javascript
+[
+    'this',
+    'some',
+    'words'
+]
+```
+
