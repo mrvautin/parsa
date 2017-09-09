@@ -100,7 +100,7 @@ describe('Parsa Tests', function() {
         });
 
         it('Error - Format: ss/tt/qqqq', function() {
-            assert.throws(() => parsa.parseDate(`${Y}/${m}/${d}`, 'ss/tt/qqqq'), /Date format is unsupported. Needs to be ISO 8601 format/);
+            assert.throws(() => parsa.parseDate(`${Y}/${m}/${d}`, 'ss/tt/qqqq'), /Date format is unsupported. Check supported formats./);
         });
     });
 
@@ -180,6 +180,19 @@ describe('Parsa Tests', function() {
 
         it('Error - Email: hi @gmail.com', function() {
             assert.equal(false, parsa.validateEmail('hi @gmail.com'))
+        });
+    });
+
+    describe('extractNum', function() {
+        it('Success - String: This is a10 string with3.14decimals6 and numbers.', function() {
+            assert.deepEqual([ '10', '3.14', '6' ], parsa.extractNum('This is a10 string with3.14decimals6 and numbers.'))
+        });
+    });
+
+    describe.only('extractWords', function() {
+        it('Success - String: Thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsjfgjkfg', function() {
+            var words = ['this', 'some', 'words'];
+            assert.deepEqual(words, parsa.extractWords('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsjfgjkfg', words))
         });
     });
 });

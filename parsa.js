@@ -70,7 +70,7 @@
 
         // Check unsupported
         if (typeof format === 'undefined') {
-            throw new Error('Date format is unsupported. Needs to be ISO 8601 format');
+            throw new Error('Date format is unsupported. Check supported formats.');
         }
 
         // Parse date
@@ -107,6 +107,24 @@
     parsa.validateEmail = function (email){
         var re = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
         return re.test(email);
+    }
+
+    parsa.extractNum = function (string){
+        const numbersAndDecimals = [];
+        string.replace(
+            new RegExp(/(?:\d*\.)?\d+/, "g"),
+            function($0) {
+                numbersAndDecimals.push($0)
+            }
+        );
+        return numbersAndDecimals;
+    }
+
+    parsa.extractWords = function (string, words){
+        let splitWords = words.join("|");
+        var reString = `(${splitWords})`;
+        var re = new RegExp(reString,"gi");
+        return string.match(re);
     }
 
     if (typeof module !== 'undefined' && module.exports) {

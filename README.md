@@ -101,3 +101,44 @@ parsa.validateEmail('hi@gmail.com')
 **Returns:**
 
 `true`
+
+## extractNum
+
+The `extractNum` function takes a string which contains numbers and/or decimals and returns an `array` with the found numbers/decimals.
+
+#### Usage
+
+``` javascript
+parsa.extractNum('This is a10 string with3.14decimals6 and numbers.')
+```
+
+**Returns:**
+
+``` javascript
+[
+    '10',
+    '3.14',
+    '6'
+]
+```
+
+## extractWords
+
+The `extractWords` function takes a string which contains words and an array of desired words and returns an `array` with the found/matched words.
+
+#### Usage
+
+``` javascript
+var words = ['this', 'some', 'words'];
+parsa.extractWords('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsjfgjkfg', words)
+```
+
+**Returns:**
+
+``` javascript
+[
+    'this',
+    'some',
+    'words'
+]
+```
