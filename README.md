@@ -20,6 +20,11 @@
 </script>
 ```
 
+##### CDN
+``` html
+<script type="text/javascript" src="https://cdn.rawgit.com/mrvautin/parsa/dist/parsa.min.js" charset="utf-8"></script>
+```
+
 #### Node
 
 ``` javascript
@@ -52,10 +57,15 @@ parsa.parseDate('20121125', 'YYYYMMDD')
 - `MM/DD/YYYY`
 - `DD/MM/YYYY`
 - `YYYY/DD/MM`
+- `DD-MM-YYYY`
+- `MM-DD-YYYY`
+- `YYYY-DD-MM`
+- `YYYY-MM-DD`
 - `DD MM YYYY`
 - `MM DD YYYY`
 - `YYYY MM DD`
-
+- `YYYYMMDD HH:MM`
+- `YYYYDDMM HH:MM`
 
 ## validateIp
 
@@ -103,44 +113,3 @@ parsa.validateEmail('hi@gmail.com')
 **Returns:**
 
 `true`
-
-## extractNum
-
-The `extractNum` function takes a string which contains numbers and/or decimals and returns an `array` with the found numbers/decimals.
-
-#### Usage
-
-``` javascript
-parsa.extractNum('This is a10 string with3.14decimals6 and numbers.')
-```
-
-**Returns:**
-
-``` javascript
-[
-    '10',
-    '3.14',
-    '6'
-]
-```
-
-## extractWords
-
-The `extractWords` function takes a string which contains words and an array of desired words and returns an `array` with the found/matched words.
-
-#### Usage
-
-``` javascript
-var words = ['this', 'some', 'words'];
-parsa.extractWords('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsjfgjkfg', words)
-```
-
-**Returns:**
-
-``` javascript
-[
-    'this',
-    'some',
-    'words'
-]
-```

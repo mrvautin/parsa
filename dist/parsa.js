@@ -45,6 +45,22 @@
             'regex': /([0-9]{4})\/([0-9]{2})\/([0-9]{2})/,
             'format': '$1-$3-$2'
         },
+        'DD-MM-YYYY': {
+            'regex': /([0-9]{2})\-([0-9]{2})\-([0-9]{4})/,
+            'format': '$3-$2-$1'
+        },
+        'MM-DD-YYYY': {
+            'regex': /([0-9]{2})\-([0-9]{2})\-([0-9]{4})/,
+            'format': '$3-$1-$2'
+        },
+        'YYYY-DD-MM': {
+            'regex': /([0-9]{4})\-([0-9]{2})\-([0-9]{2})/,
+            'format': '$3-$2-$1'
+        },
+        'YYYY-MM-DD': {
+            'regex': /([0-9]{4})\-([0-9]{2})\-([0-9]{2})/,
+            'format': '$1-$2-$3'
+        },
         'DD MM YYYY': {
             'regex': /([0-9]{2})\s([0-9]{2})\s([0-9]{4})/,
             'format': '$3-$2-$1'
@@ -56,6 +72,14 @@
         'YYYY MM DD': {
             'regex': /([0-9]{2})\s([0-9]{2})\s([0-9]{4})/,
             'format': '$1-$2-$3'
+        },
+        'YYYYMMDD HH:MM': {
+            'regex': /([0-9]{4})([0-9]{2})([0-9]{2})\s([0-9]{2}):([0-9]{2})/,
+            'format': '$1-$2-$3 $4:$5'
+        },
+        'YYYYDDMM HH:MM': {
+            'regex': /([0-9]{4})([0-9]{2})([0-9]{2})\s([0-9]{2}):([0-9]{2})/,
+            'format': '$1-$3-$2 $4:$5'
         }
     }
 
@@ -75,6 +99,7 @@
 
         // Parse date
         const formattedDate = dateString.replace(format.regex, format.format);
+        console.log("formattedDate", formattedDate)
         const dateObject = Date.parse(formattedDate)
 
         // Throw error if parsing fails

@@ -1,6 +1,6 @@
 {
     "name": "parsa",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Parsa ya data! An all purpose parser to parse or validate data.",
     "main": "parsa.js",
     "scripts": {

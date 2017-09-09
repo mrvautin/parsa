@@ -46,6 +46,34 @@ describe('Parsa Tests', function() {
             assert.equal(Y, date.getFullYear());
         });
 
+        it('Success - Format: DD-MM-YYYY', function() {
+            const date = parsa.parseDate(`${d}-${m}-${Y}`, 'DD-MM-YYYY')
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
+        it('Success - Format: MM-DD-YYYY', function() {
+            const date = parsa.parseDate(`${m}-${d}-${Y}`, 'MM-DD-YYYY')
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
+        it('Success - Format: YYYY-DD-MM', function() {
+            const date = parsa.parseDate(`${Y}-${d}-${m}`, 'YYYY-DD-MM')
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
+        it('Success - Format: YYYY-MM-DD', function() {
+            const date = parsa.parseDate(`${Y}-${m}-${d}`, 'YYYY-MM-DD')
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
         it('Success - Format: DDMMYYYY', function() {
             const date = parsa.parseDate(`${d}${m}${Y}`, 'DDMMYYYY')
             assert.equal(d, date.getDate());
@@ -90,6 +118,24 @@ describe('Parsa Tests', function() {
 
         it('Success - Format: YYYY MM DD', function() {
             const date = parsa.parseDate(`${Y} ${m} ${d}`, 'YYYY MM DD')
+            assert.equal(d, date.getDate())
+            assert.equal(m, date.getMonth() + 1)
+            assert.equal(Y, date.getFullYear())
+        });
+
+        it('Success - Format: YYYYMMDD HH:MM', function() {
+            const date = parsa.parseDate(`${Y}${m}${d} ${h}:${mi}`, 'YYYYMMDD HH:MM')
+            assert.equal(h, date.getHours())
+            assert.equal(mi, date.getMinutes())
+            assert.equal(d, date.getDate())
+            assert.equal(m, date.getMonth() + 1)
+            assert.equal(Y, date.getFullYear())
+        });
+
+        it('Success - Format: YYYYDDMM HH:MM', function() {
+            const date = parsa.parseDate(`${Y}${d}${m} ${h}:${mi}`, 'YYYYDDMM HH:MM')
+            assert.equal(h, date.getHours())
+            assert.equal(mi, date.getMinutes())
             assert.equal(d, date.getDate())
             assert.equal(m, date.getMonth() + 1)
             assert.equal(Y, date.getFullYear())
