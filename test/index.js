@@ -5,6 +5,8 @@ var assert = require('assert');
 
 describe('Parsa Tests', function(){
     describe('parseDate', function(){
+        const Do = '16th';
+        const MMMM = 'November';
         const s = 22;
         const mi = 15;
         const h = 11;
@@ -138,6 +140,73 @@ describe('Parsa Tests', function(){
             const date = parsa.parseDate(`${Y}${d}${m} ${h}:${mi}`, 'YYYYDDMM HH:MM');
             assert.equal(h, date.getHours());
             assert.equal(mi, date.getMinutes());
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
+        it('Success - Format: YYYYDDMM HH:MM:SS', function(){
+            const date = parsa.parseDate(`${Y}${d}${m} ${h}:${mi}:${s}`, 'YYYYDDMM HH:MM:SS');
+            assert.equal(h, date.getHours());
+            assert.equal(mi, date.getMinutes());
+            assert.equal(s, date.getSeconds());
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
+        it('Success - Format: YYYY-DD-MM HH:MM', function(){
+            const date = parsa.parseDate(`${Y}-${d}-${m} ${h}:${mi}`, 'YYYY-DD-MM HH:MM');
+            assert.equal(h, date.getHours());
+            assert.equal(mi, date.getMinutes());
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
+        it('Success - Format: YYYY-MM-DD HH:MM', function(){
+            const date = parsa.parseDate(`${Y}-${m}-${d} ${h}:${mi}`, 'YYYY-MM-DD HH:MM');
+            assert.equal(h, date.getHours());
+            assert.equal(mi, date.getMinutes());
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
+        it('Success - Format: YYYY/MM/DD HH:MM', function(){
+            const date = parsa.parseDate(`${Y}/${m}/${d} ${h}:${mi}`, 'YYYY/MM/DD HH:MM');
+            assert.equal(h, date.getHours());
+            assert.equal(mi, date.getMinutes());
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
+        it('Success - Format: YYYY/DD/MM HH:MM', function(){
+            const date = parsa.parseDate(`${Y}/${d}/${m} ${h}:${mi}`, 'YYYY/DD/MM HH:MM');
+            assert.equal(h, date.getHours());
+            assert.equal(mi, date.getMinutes());
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
+        it('Success - Format: Do MMMM YYYY', function(){
+            const date = parsa.parseDate(`${Do} ${MMMM} ${Y}`, 'Do MMMM YYYY');
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
+        it('Success - Format: Do, MMMM, YYYY', function(){
+            const date = parsa.parseDate(`${Do}, ${MMMM}, ${Y}`, 'Do, MMMM, YYYY');
+            assert.equal(d, date.getDate());
+            assert.equal(m, date.getMonth() + 1);
+            assert.equal(Y, date.getFullYear());
+        });
+
+        it('Success - Format: MM MMMM YYYY', function(){
+            const date = parsa.parseDate(`${d} ${MMMM} ${Y}`, 'MM MMMM YYYY');
             assert.equal(d, date.getDate());
             assert.equal(m, date.getMonth() + 1);
             assert.equal(Y, date.getFullYear());

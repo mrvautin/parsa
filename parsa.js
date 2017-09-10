@@ -71,7 +71,7 @@
             'format': '$3-$1-$2'
         },
         'YYYY MM DD': {
-            'regex': /([0-9]{2})\s([0-9]{2})\s([0-9]{4})/,
+            'regex': /([0-9]{4})\s([0-9]{2})\s([0-9]{2})/,
             'format': '$1-$2-$3'
         },
         'YYYYMMDD HH:MM': {
@@ -81,6 +81,99 @@
         'YYYYDDMM HH:MM': {
             'regex': /([0-9]{4})([0-9]{2})([0-9]{2})\s([0-9]{2}):([0-9]{2})/,
             'format': '$1-$3-$2 $4:$5'
+        },
+        'YYYYMMDD HH:MM:SS': {
+            'regex': /([0-9]{4})([0-9]{2})([0-9]{2})\s([0-9]{2}):([0-9]{2}):([0-9]{2})/,
+            'format': '$1-$2-$3 $4:$5:$6'
+        },
+        'YYYYDDMM HH:MM:SS': {
+            'regex': /([0-9]{4})([0-9]{2})([0-9]{2})\s([0-9]{2}):([0-9]{2}):([0-9]{2})/,
+            'format': '$1-$3-$2 $4:$5:$6'
+        },
+        'YYYY-DD-MM HH:MM': {
+            'regex': /([0-9]{4})\-([0-9]{2})\-([0-9]{2})\s([0-9]{2}):([0-9]{2})/,
+            'format': '$1-$3-$2 $4:$5'
+        },
+        'YYYY-MM-DD HH:MM': {
+            'regex': /([0-9]{4})\-([0-9]{2})\-([0-9]{2})\s([0-9]{2}):([0-9]{2})/,
+            'format': '$1-$2-$3 $4:$5'
+        },
+        'YYYY/MM/DD HH:MM': {
+            'regex': /([0-9]{4})\/([0-9]{2})\/([0-9]{2})\s([0-9]{2}):([0-9]{2})/,
+            'format': '$1-$2-$3 $4:$5'
+        },
+        'YYYY/DD/MM HH:MM': {
+            'regex': /([0-9]{4})\/([0-9]{2})\/([0-9]{2})\s([0-9]{2}):([0-9]{2})/,
+            'format': '$1-$3-$2 $4:$5'
+        },
+        'Do MMMM YYYY': {
+            'regex': /([^\s]+)\s([^\s]+)\s([^\s{4}][0-9]+)/,
+            'format': replacer
+        },
+        'Do, MMMM, YYYY': {
+            'regex': /([^\s]+),\s([^\s]+),\s([^\s{4}][0-9]+)/,
+            'format': replacer
+        },
+        'MM MMMM YYYY': {
+            'regex': /([^\s]+)\s([^\s]+)\s([^\s{4}][0-9]+)/,
+            'format': replacer
+        }
+    };
+
+    function replacer(match, p1, p2, p3){
+        if(parsa.format === 'Do MMMM YYYY'){
+            return`${p3}-${parsa.longMonth[p2].num}-${p1.replace(/[A-Za-z]/g, '')}`;
+        }
+
+        if(parsa.format === 'Do, MMMM, YYYY'){
+            return`${p3}-${parsa.longMonth[p2].num}-${p1.replace(/[A-Za-z]/g, '')}`;
+        }
+
+        if(parsa.format === 'MM MMMM YYYY'){
+            return`${p3}-${parsa.longMonth[p2].num}-${p1}`;
+        }
+
+        console.log(`[ERROR] Date format: ${formattedDate}`); // eslint-disable-line
+        throw new Error('Could not parse date.');
+    }
+
+
+    parsa.longMonth = {
+        'January': {
+            'num': '01'
+        },
+        'February': {
+            'num': '03'
+        },
+        'March': {
+            'num': '03'
+        },
+        'April': {
+            'num': '04'
+        },
+        'May': {
+            'num': '05'
+        },
+        'June': {
+            'num': '06'
+        },
+        'July': {
+            'num': '07'
+        },
+        'August': {
+            'num': '08'
+        },
+        'September': {
+            'num': '09'
+        },
+        'October': {
+            'num': '10'
+        },
+        'November': {
+            'num': '11'
+        },
+        'December': {
+            'num': '12'
         }
     };
 
@@ -91,19 +184,23 @@
         }
 
         // set date format
-        format = parsa.dateFormats[format.toUpperCase() ];
+        let formatMatch = parsa.dateFormats[format];
 
         // Check unsupported
-        if(typeof format === 'undefined'){
+        if(typeof formatMatch === 'undefined'){
             throw new Error('Date format is unsupported. Check supported formats.');
         }
 
+        // Set the format
+        parsa.format = format;
+
         // Parse date
-        const formattedDate = dateString.replace(format.regex, format.format);
+        const formattedDate = dateString.replace(formatMatch.regex, formatMatch.format);
         const dateObject = Date.parse(formattedDate);
 
         // Throw error if parsing fails
         if(isNaN(dateObject)){
+            console.log(`[ERROR] Date format: ${formattedDate}`); // eslint-disable-line
             throw new Error('Could not parse date.');
         }
 

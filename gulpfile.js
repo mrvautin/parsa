@@ -38,3 +38,5 @@ gulp.task('docs', function(callback){
 gulp.task('deploy', function(callback){
     runSequence('docs', ['build'], callback);
 });
+
+gulp.task("default", ["deploy"]);

@@ -66,6 +66,15 @@ parsa.parseDate('20121125', 'YYYYMMDD')
 - `YYYY MM DD`
 - `YYYYMMDD HH:MM`
 - `YYYYDDMM HH:MM`
+- `YYYYMMDD HH:MM:SS`
+- `YYYYDDMM HH:MM:SS`
+- `YYYY-DD-MM HH:MM`
+- `YYYY-MM-DD HH:MM`
+- `YYYY/MM/DD HH:MM`
+- `YYYY/DD/MM HH:MM`
+- `Do MMMM YYYY`
+- `Do, MMMM, YYYY`
+- `MM MMMM YYYY`
 
 
 ## validateIp
