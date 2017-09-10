@@ -120,6 +120,7 @@
         }
     };
 
+    // Replaces special formats (full month, 1st, 2nd Day etc)
     function replacer(match, p1, p2, p3){
         if(parsa.format === 'Do MMMM YYYY'){
             return`${p3}-${parsa.longMonth[p2].num}-${p1.replace(/[A-Za-z]/g, '')}`;
@@ -137,8 +138,7 @@
         throw new Error('Could not parse date.');
     }
 
-
-    parsa.longMonth = {
+    parsa.lm = {
         'January': {
             'num': '01'
         },

@@ -9,6 +9,8 @@
 - Extracts numbers and decimals from string
 - Extracts words from string
 
+`parsa` is only 5KB comapare to `Moment.js` which is ~51KB. This is handy if using in the browser.
+
 ## Installation
 
 #### Browser
@@ -30,6 +32,18 @@
 ``` javascript
 const parsa = require('parsa');
 parsa.parseDate('20121125', 'YYYYMMDD');
+```
+
+## Tests
+
+``` shell
+npm test
+```
+
+## Build
+
+``` shell
+gulp deploy
 ```
 
 ## parseDate
@@ -137,4 +151,3 @@ parsa.extractWords('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsj
     'words'
 ]
 ```
-
