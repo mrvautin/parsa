@@ -138,7 +138,7 @@
         throw new Error('Could not parse date.');
     }
 
-    parsa.lm = {
+    parsa.longMonth = {
         'January': {
             'num': '01'
         },
@@ -222,13 +222,36 @@
         if(typeof url !== 'string'){
             throw new Error('URL not supplied.');
         }
-        const queryStringObject = {};
+        let queryStringObject = {};
         url.replace(
             new RegExp("([^?=&]+)(=([^&]*))?", "g"),
             function($0, $1, $2, $3){ if($3){queryStringObject[$1] = $3;} }
         );
 
         return queryStringObject;
+    };
+
+    parsa.parseUrl = function (url){
+        if(typeof url !== 'string'){
+            throw new Error('URL not supplied.');
+        }
+        let urlObject = {};
+        url.replace(
+            new RegExp(/^(?:(http[s]?|ftp[s]):\/\/)?([^:\/\s]+)(:[0-9]+)?((?:\/\w+)*\/)([\w\-\.]+[^#?\s]+)([^#\s]*)?(#[\w\-]+)?$/, "g"),
+            function($0, $1, $2, $3, $4, $5, $6, $7){
+                urlObject = {
+                    url: url,
+                    protocol: $1,
+                    host: $2,
+                    port: $3,
+                    path: $4,
+                    file: $5,
+                    query: $6,
+                    hash: $7
+                };
+            }
+        );
+        return urlObject;
     };
 
     parsa.validateEmail = function (email){
@@ -264,6 +287,14 @@
         var reString = `(${splitWords})`;
         var re = new RegExp(reString,"gi");
         return string.match(re);
+    };
+
+    parsa.securePassword = function (password){
+        if(typeof password !== 'string'){
+            throw new Error('Password not supplied.');
+        }
+        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+        return re.test(password);
     };
 
     if(typeof module !== 'undefined' && module.exports){

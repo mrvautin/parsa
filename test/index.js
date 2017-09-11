@@ -326,4 +326,42 @@ describe('Parsa Tests', function(){
             assert.throws(() => parsa.extractWords('Thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsjfgjkfg', words), /Words array not supplied./);
         });
     });
+
+    describe('parseUrl', function(){
+        it('Success - URL: https://www.google.com:80/dir/1/2/search.html?arg=0-a&arg1=1-b&arg3-c#hash', function(){
+            var url = {
+                url: 'https://www.google.com:80/dir/1/2/search.html?arg=0-a&arg1=1-b&arg3-c#hash',
+                protocol: 'https',
+                host: 'www.google.com',
+                port: ':80',
+                path: '/dir/1/2/',
+                file: 'search.html',
+                query: '?arg=0-a&arg1=1-b&arg3-c',
+                hash: '#hash'
+            };
+            assert.deepEqual(url, parsa.parseUrl('https://www.google.com:80/dir/1/2/search.html?arg=0-a&arg1=1-b&arg3-c#hash'));
+        });
+
+        it('Error - String: null', function(){
+            assert.throws(() => parsa.extractNum(), /String not supplied./);
+        });
+    });
+
+    describe('securePassword', function(){
+        it('Success - Password: Testing193!', function(){
+            assert.equal(true, parsa.securePassword('Testing193!'));
+        });
+
+        it('Error - Password: shitpassword', function(){
+            assert.equal(false, parsa.securePassword('shitpassword'));
+        });
+
+        it('Success - Password: tooshort', function(){
+            assert.equal(false, parsa.securePassword('tooshort'));
+        });
+
+        it('Error - Password: null', function(){
+            assert.throws(() => parsa.securePassword(), /Password not supplied./);
+        });
+    });
 });

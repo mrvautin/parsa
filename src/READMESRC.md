@@ -97,6 +97,30 @@ parsa.parseQuery('http://example.com/product.php?category=4&product_id=2140&quer
 }
 ```
 
+## parseUrl
+
+The `parseUrl` function takes a URL and returns an `Object` of the URL section.
+
+#### Usage
+
+``` javascript
+parsa.parseQuery('https://www.google.com:80/dir/1/2/search.html?arg=0-a&arg1=1-b&arg3-c#hash')
+```
+
+**Returns:**
+``` json
+{
+    "url": "https://www.google.com:80/dir/1/2/search.html?arg=0-a&arg1=1-b&arg3-c#hash",
+    "protocol": "https",
+    "host": "www.google.com",
+    "port": ":80",
+    "path": "/dir/1/2/",
+    "file": "search.html",
+    "query": "?arg=0-a&arg1=1-b&arg3-c",
+    "hash": "#hash"
+}
+```
+
 ## validateEmail
 
 The `validateEmail` function takes a email address string and returns a `boolean` value whether it is valid or invalid.
@@ -151,3 +175,23 @@ parsa.extractWords('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsj
     'words'
 ]
 ```
+
+## securePassword
+
+The `securePassword` function takes a password string returns a `boolean` whether it's a secure password.
+
+#### Usage
+
+``` javascript
+parsa.securePassword('Testing193!')
+```
+
+Password requirements are set to standard defaults:
+
+- at least 8 characters
+- must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
+- Can contain special characters
+
+**Returns:**
+
+`true`
