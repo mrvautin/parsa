@@ -5,9 +5,11 @@
 - String formatted (with format) dates into a Date Object
 - Validates IP (true/false)
 - Parses a URL query string into an Object
+- Parses a URL into an Object with Host, Path, Hash, Protocol etc
 - Validates Email address (true/false)
 - Extracts numbers and decimals from string
 - Extracts words from string
+- Checks for a secure password (8 Characters, uppercase, lowercase, number & special characters)
 
 `parsa` is only 5KB comapare to `Moment.js` which is ~51KB. This is handy if using in the browser.
 
