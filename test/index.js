@@ -364,4 +364,31 @@ describe('Parsa Tests', function(){
             assert.throws(() => parsa.securePassword(), /Password not supplied./);
         });
     });
+
+    describe.only('validateUrl', function(){
+        it('Error - URL: www.google.com', function(){
+            assert.equal(false, parsa.validateUrl('www.google.com'));
+        });
+        it('Success - URL: https://www.google.net', function(){
+            assert.equal(true, parsa.validateUrl('https://www.google.net'));
+        });
+        it('Success - URL: https://www.google.comma', function(){
+            assert.equal(true, parsa.validateUrl('https://www.google.comma'));
+        });
+        it('Error - URL: https://www.google .com', function(){
+            assert.equal(false, parsa.validateUrl('https://www.google. com'));
+        });
+        it('Success - URL: http://userid@example.com:8080', function(){
+            assert.equal(true, parsa.validateUrl('http://userid@example.com:8080'));
+        });
+        it('Success - URL: http://foo.com/blah_blah_(wikipedia)', function(){
+            assert.equal(true, parsa.validateUrl('http://foo.com/blah_blah_(wikipedia)'));
+        });
+        it('Success - URL: http://142.42.1.1/', function(){
+            assert.equal(true, parsa.validateUrl('http://142.42.1.1/'));
+        });
+        it('Error - URL: http://../', function(){
+            assert.equal(false, parsa.validateUrl('http://../'));
+        });
+    });
 });

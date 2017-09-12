@@ -1,6 +1,6 @@
 {
     "name": "parsa",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "description": "Parsa ya data! An all purpose parser to parse or validate data.",
     "main": "parsa.js",
     "private": false,
@@ -19,7 +19,9 @@
         "words",
         "decimals",
         "validate",
-        "extract"
+        "extract",
+        "validate url",
+        "url"
     ],
     "author": "Mark Moffat",
     "license": "MIT",

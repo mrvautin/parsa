@@ -150,6 +150,19 @@ parsa.parseQuery('https://www.google.com:80/dir/1/2/search.html?arg=0-a&arg1=1-b
 }
 ```
 
+## validateUrl
+
+The `validateUrl` function takes a URL and returns a `boolean` result.
+
+#### Usage
+
+``` javascript
+parsa.validateUrl('https://www.google.com')
+```
+
+**Returns:**
+`true`
+
 ## validateEmail
 
 The `validateEmail` function takes a email address string and returns a `boolean` value whether it is valid or invalid.

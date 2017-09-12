@@ -6,6 +6,7 @@
 - Validates IP (true/false)
 - Parses a URL query string into an Object
 - Parses a URL into an Object with Host, Path, Hash, Protocol etc
+- Validates whether a string URL is valid
 - Validates Email address (true/false)
 - Extracts numbers and decimals from string
 - Extracts words from string
@@ -122,6 +123,19 @@ parsa.parseQuery('https://www.google.com:80/dir/1/2/search.html?arg=0-a&arg1=1-b
     "hash": "#hash"
 }
 ```
+
+## validateUrl
+
+The `validateUrl` function takes a URL and returns a `boolean` result.
+
+#### Usage
+
+``` javascript
+parsa.validateUrl('https://www.google.com')
+```
+
+**Returns:**
+`true`
 
 ## validateEmail
 
