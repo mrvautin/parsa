@@ -251,6 +251,32 @@ describe('Parsa Tests', function(){
         });
     });
 
+    describe('validateIpv6', function(){
+        it('Error - IP: 115.42.150.37', function(){
+            assert.equal(false, parsa.validateIpv6('115.42.150.37'));
+        });
+
+        it('Success - IP: 2001:db8:3:4::', function(){
+            assert.equal(true, parsa.validateIpv6('2001:db8:3:4::'));
+        });
+
+        it('Success - IP: 64:ff9b::', function(){
+            assert.equal(true, parsa.validateIpv6('64:ff9b::'));
+        });
+
+        it('Error - IP: 666.10.10.20', function(){
+            assert.equal(false, parsa.validateIpv6('666.10.10.20'));
+        });
+
+        it('Error - IP: x.x.x.x', function(){
+            assert.equal(false, parsa.validateIpv6('x.x.x.x'));
+        });
+
+        it('Error - IP: 2001', function(){
+            assert.equal(false, parsa.validateIpv6('2001'));
+        });
+    });
+
     describe('parseQuery', function(){
         it('Success - URL: http://example.com/product.php?category=4&product_id=2140&query=lcd+tv', function(){
             const queryObject = {
@@ -365,7 +391,7 @@ describe('Parsa Tests', function(){
         });
     });
 
-    describe.only('validateUrl', function(){
+    describe('validateUrl', function(){
         it('Error - URL: www.google.com', function(){
             assert.equal(false, parsa.validateUrl('www.google.com'));
         });
@@ -389,6 +415,82 @@ describe('Parsa Tests', function(){
         });
         it('Error - URL: http://../', function(){
             assert.equal(false, parsa.validateUrl('http://../'));
+        });
+    });
+
+    describe('removeAlpha', function(){
+        it('Success - String: Testing193!', function(){
+            assert.equal('193', parsa.removeAlpha('193'));
+        });
+
+        it('Success - String: 1', function(){
+            assert.equal('1', parsa.removeAlpha('1'));
+        });
+
+        it('Success - String: fdklklfd', function(){
+            assert.equal('', parsa.removeAlpha('fdklklfd'));
+        });
+
+        it('Error - Password: null', function(){
+            assert.throws(() => parsa.removeAlpha(), /String not supplied./);
+        });
+    });
+
+    describe('removeNumeric', function(){
+        it('Success - String: Testing193!', function(){
+            assert.equal('Testing!', parsa.removeNumeric('Testing193!'));
+        });
+
+        it('Success - String: 1', function(){
+            assert.equal('', parsa.removeNumeric('1'));
+        });
+
+        it('Success - String: _dklds1234d;l;fdfk;fd124', function(){
+            assert.equal('_dkldsd;l;fdfk;fd', parsa.removeNumeric('_dklds1234d;l;fdfk;fd124'));
+        });
+
+        it('Error - Password: null', function(){
+            assert.throws(() => parsa.removeNumeric(), /String not supplied./);
+        });
+    });
+
+    describe('firstUppercase', function(){
+        it('Success - String: this is a test string', function(){
+            assert.equal('This Is A Test String', parsa.firstUppercase('this is a test string'));
+        });
+
+        it('Success - String: A', function(){
+            assert.equal('A', parsa.firstUppercase('A'));
+        });
+
+        it('Success - String: A TEST STRING', function(){
+            assert.equal('A TEST STRING', parsa.firstUppercase('A TEST STRING'));
+        });
+
+        it('Success - String: ateststring', function(){
+            assert.equal('Ateststring', parsa.firstUppercase('ateststring'));
+        });
+
+        it('Error - String: null', function(){
+            assert.throws(() => parsa.firstUppercase(), /String not supplied./);
+        });
+    });
+
+    describe('extractPhone', function(){
+        it('Success - String: This is a phone +49 172 7470791 number', function(){
+            assert.deepEqual(['+49 172 7470791'], parsa.extractPhone('This is a phone +49 172 7470791 number'));
+        });
+
+        it('Success - String: This string has multiple +49 621 60-6641516 phone numbers +49 621 60-41516', function(){
+            assert.deepEqual(['+49 621 60-6641516', '+49 621 60-41516'] , parsa.extractPhone('This string has multiple +49 621 60-6641516 phone numbers +49 621 60-41516'));
+        });
+
+        it('Success - String: This+49 621 60-6641516has spaces', function(){
+            assert.deepEqual(['+49 621 60-6641516'] , parsa.extractPhone('This+49 621 60-6641516has spaces'));
+        });
+
+        it('Error - String: null', function(){
+            assert.throws(() => parsa.extractPhone(), /String not supplied./);
         });
     });
 });

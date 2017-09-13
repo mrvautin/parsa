@@ -3,15 +3,20 @@
 `parsa` is an all purpose parser which can parse or validate the following:
 
 - String formatted (with format) dates into a Date Object
-- Validates IP (true/false)
+- Validates IPv4 and IPv6 (true/false)
 - Parses a URL query string into an Object
 - Parses a URL into an Object with Host, Path, Hash, Protocol etc
+- Validates whether a string URL is valid
 - Validates Email address (true/false)
 - Extracts numbers and decimals from string
 - Extracts words from string
+- Extracts phone numbers from string
+- Removes Alpha characters from string
+- Removes numeric characters from string
+- Changes first character of each word to uppercase
 - Checks for a secure password (8 Characters, uppercase, lowercase, number & special characters)
 
-`parsa` is only 5KB comapare to `Moment.js` which is ~51KB. This is handy if using in the browser.
+`parsa` is only 5KB compare to `Moment.js` which is ~51KB. This is handy if using in the browser.
 
 ## Installation
 
@@ -101,6 +106,20 @@ The `validateIp` function takes an IP address string and returns a `boolean` val
 
 ``` javascript
 parsa.validateIp('115.42.150.37')
+```
+
+**Returns:**
+
+`true`
+
+## validateIpv6
+
+The `validateIpv6` function takes an IP address string and returns a `boolean` value whether it is valid or invalid.
+
+#### Usage
+
+``` javascript
+parsa.validateIpv6('2001:db8:3:4::')
 ```
 
 **Returns:**
@@ -218,6 +237,26 @@ parsa.extractWords('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsj
 ]
 ```
 
+## extractPhone
+
+The `extractPhone` function takes a string and returns an `array` of matched phone numbers.
+
+#### Usage
+
+``` javascript
+parsa.extractPhone('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsjfgjkfg', words)
+```
+
+**Returns:**
+
+``` javascript
+[
+    'this',
+    'some',
+    'words'
+]
+```
+
 ## securePassword
 
 The `securePassword` function takes a password string returns a `boolean` whether it's a secure password.
@@ -237,3 +276,45 @@ Password requirements are set to standard defaults:
 **Returns:**
 
 `true`
+
+## removeAlpha
+
+The `removeAlpha` function takes a string and removes all non number characters.
+
+#### Usage
+
+``` javascript
+parsa.removeAlpha('some1number')
+```
+
+**Returns:**
+
+`1`
+
+## removeNumeric
+
+The `removeNumeric` function takes a string and removes all numbers.
+
+#### Usage
+
+``` javascript
+parsa.removeNumeric('some1number')
+```
+
+**Returns:**
+
+`somenumber`
+
+## firstUppercase
+
+The `firstUppercase` function takes a string and makes the first character of each word uppercase.
+
+#### Usage
+
+``` javascript
+parsa.firstUppercase('this is a test string')
+```
+
+**Returns:**
+
+`This Is A Test String`
