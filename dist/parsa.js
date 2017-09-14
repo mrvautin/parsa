@@ -276,6 +276,82 @@
         return re.test(email);
     };
 
+    parsa.isBetweenLength = function (value, minLength, maxLength){
+        if(!value){
+            throw new Error('Value not supplied.');
+        }
+
+        if(!minLength || typeof minLength !== "number"){
+            throw new Error('Min Length not supplied.');
+        }
+
+        if(!maxLength || typeof maxLength !== "number"){
+            throw new Error('Max Length not supplied.');
+        }
+
+        if(value.length >= minLength && value.length <= maxLength){
+            return true;
+        }
+        return false;
+    };
+
+    parsa.maxLength = function (value, length){
+        if(value && value.length >= length){
+            return false;
+        }
+        return true;
+    };
+
+    parsa.minLength = function (value, length){
+        if(value && value.length >= length){
+            return true;
+        }
+        return false;
+    };
+
+    parsa.isNumeric = function (value){
+        if(/\D/g.test(value) === true){
+            return false;
+        }
+        return true;
+    };
+
+    parsa.isAlpha = function (value){
+        if(/(?:\d*\.)?\d+/g.test(value) === true){
+            return false;
+        }
+        return true;
+    };
+
+    parsa.isFunction = function (value){
+        if(typeof value === "function"){
+            return true;
+        }
+        return false;
+    };
+
+    parsa.isObject = function (value){
+        if(typeof value === "object"){
+            return true;
+        }
+        return false;
+    };
+
+    parsa.isArray = function (value){
+        return Array.isArray(value);
+    };
+
+    parsa.isNumber = function (value){
+        return Number.isInteger(value);
+    };
+
+    parsa.isString = function (value){
+        if(typeof value === "string"){
+            return true;
+        }
+        return false;
+    };
+
     parsa.extractNum = function (string){
         if(typeof string !== 'string'){
             throw new Error('String not supplied.');
@@ -356,8 +432,6 @@
         );
         return phoneNumbers;
     };
-
-
 
     if(typeof module !== 'undefined' && module.exports){
         module.exports = parsa;

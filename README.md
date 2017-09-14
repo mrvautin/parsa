@@ -15,6 +15,7 @@
 - Removes numeric characters from string
 - Changes first character of each word to uppercase
 - Checks for a secure password (8 Characters, uppercase, lowercase, number & special characters)
+- Many many more...
 
 `parsa` is only 5KB compare to `Moment.js` which is ~51KB. This is handy if using in the browser.
 
@@ -318,3 +319,130 @@ parsa.firstUppercase('this is a test string')
 **Returns:**
 
 `This Is A Test String`
+
+## isAlpha
+
+The `isAlpha` function takes a value and returns a `boolean` whether it contains only alpha characters.
+
+#### Usage
+
+``` javascript
+parsa.isAlpha('this is a test string')
+```
+
+**Returns:**
+
+`true`
+
+## isNumeric
+
+The `isNumeric` function takes value and returns a `boolean` whether it contains only alpha numbers.
+
+#### Usage
+
+``` javascript
+parsa.isNumeric(1234)
+```
+
+**Returns:**
+
+`true`
+
+## isObject
+
+The `isObject` function takes value and returns a `boolean` whether it is a `Object`.
+
+#### Usage
+
+``` javascript
+parsa.isObject({"test": "Object"})
+```
+
+**Returns:**
+
+`true`
+
+## isArray
+
+The `isArray` function takes value and returns a `boolean` whether it is a `Array`.
+
+#### Usage
+
+``` javascript
+parsa.isArray(['abcd', '1234'])
+```
+
+**Returns:**
+
+`true`
+
+## isString
+
+The `isString` function takes value and returns a `boolean` whether it is a `String`.
+
+#### Usage
+
+``` javascript
+parsa.isString('fkdlfkdl3233')
+```
+
+**Returns:**
+
+`true`
+
+## isFunction
+
+The `isFunction` function takes value and returns a `boolean` whether it is a `Function`.
+
+#### Usage
+
+``` javascript
+parsa.isFunction(function test(){})
+```
+
+**Returns:**
+
+`true`
+
+## minLength
+
+The `minLength` function takes value and a desired length and returns a `boolean` whether it's is greater than supplied value.
+
+#### Usage
+
+``` javascript
+parsa.minLength('23434fdfdfd', 5)
+```
+
+**Returns:**
+
+`true`
+
+## maxLength
+
+The `maxLength` function takes value and a desired length and returns a `boolean` whether it's is less than supplied value.
+
+#### Usage
+
+``` javascript
+parsa.maxLength('23434fdfdfd', 5)
+```
+
+**Returns:**
+
+`false`
+
+## isBetweenLength
+
+The `isBetweenLength` function takes value, a min length and a max length and returns a `boolean` whether the value is between the range.
+
+#### Usage
+
+``` javascript
+parsa.maxLength('23434fdf', 5, 10)
+```
+
+**Returns:**
+
+`true`
+

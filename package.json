@@ -1,7 +1,7 @@
 {
     "name": "parsa",
-    "version": "0.0.8",
-    "description": "Parsa ya data! An all purpose parser to parse or validate data.",
+    "version": "0.0.9",
+    "description": "Parsa ya data! An all purpose module to parse, sanitize and validate data.",
     "main": "parsa.js",
     "private": false,
     "scripts": {
@@ -27,7 +27,9 @@
         "phone number",
         "first upper",
         "remove",
-        "strip"
+        "strip",
+        "sanitize",
+        "check"
     ],
     "author": "Mark Moffat",
     "license": "MIT",

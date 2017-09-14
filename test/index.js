@@ -493,4 +493,134 @@ describe('Parsa Tests', function(){
             assert.throws(() => parsa.extractPhone(), /String not supplied./);
         });
     });
+
+    describe('isAlpha', function(){
+        it('Success - Value: abcd', function(){
+            assert.equal(true, parsa.isAlpha('abcd'));
+        });
+
+        it('Success - Value: abcd1', function(){
+            assert.equal(false, parsa.isAlpha('abcd1'));
+        });
+    });
+
+    describe('isNumeric', function(){
+        it('Success - Value: abcd', function(){
+            assert.equal(false, parsa.isNumeric('abcd'));
+        });
+
+        it('Success - Value: 23443a1', function(){
+            assert.equal(false, parsa.isNumeric('23443a1'));
+        });
+
+        it('Success - Value: 234431', function(){
+            assert.equal(true, parsa.isNumeric('234431'));
+        });
+    });
+
+    describe('isObject', function(){
+        it('Success - Value: abcd', function(){
+            assert.equal(false, parsa.isObject('abcd'));
+        });
+
+        it('Success - Value: {"test": "Object"}', function(){
+            assert.equal(true, parsa.isObject({"test": "Object"}));
+        });
+
+        it('Success - Value: 234431', function(){
+            assert.equal(false, parsa.isObject(12345));
+        });
+    });
+
+    describe('isArray', function(){
+        it('Success - Value: ["abcd", "1234"]', function(){
+            assert.equal(true, parsa.isArray(['abcd', '1234']));
+        });
+
+        it('Success - Value: {"test": "Object"}', function(){
+            assert.equal(false, parsa.isArray({"test": "Object"}));
+        });
+
+        it('Success - Value: 234431', function(){
+            assert.equal(false, parsa.isArray(12345));
+        });
+    });
+
+    describe('isString', function(){
+        it('Success - Value: ["abcd", "1234"]', function(){
+            assert.equal(false, parsa.isString(['abcd', '1234']));
+        });
+
+        it('Success - Value: {"test": "Object"}', function(){
+            assert.equal(false, parsa.isString({"test": "Object"}));
+        });
+
+        it('Success - Value: abcd', function(){
+            assert.equal(true, parsa.isString("abcd"));
+        });
+    });
+
+    describe('isFunction', function(){
+        it('Success - Value: ["abcd", "1234"]', function(){
+            assert.equal(false, parsa.isFunction(['abcd', '1234']));
+        });
+
+        it('Success - Value: {"test": "Object"}', function(){
+            assert.equal(false, parsa.isFunction({"test": "Object"}));
+        });
+
+        it('Success - Value: function test(){}', function(){
+            assert.equal(true, parsa.isFunction(function test(){}));
+        });
+    });
+
+    describe('minLength', function(){
+        it('Success - Value: 23434fdfdfd', function(){
+            assert.equal(true, parsa.minLength('23434fdfdfd', 5));
+        });
+
+        it('Success - Value: abc', function(){
+            assert.equal(false, parsa.minLength('abc', 5));
+        });
+    });
+
+    describe('maxLength', function(){
+        it('Success - Value: 23434fdfdfd, Length: 5', function(){
+            assert.equal(false, parsa.maxLength('23434fdfdfd', 5));
+        });
+
+        it('Success - Value: abc, Length: 5', function(){
+            assert.equal(true, parsa.maxLength('abc', 5));
+        });
+    });
+
+    describe('isBetweenLength', function(){
+        it('Success - Value: 23434fdfd, minLength: 5 - maxLength: 10', function(){
+            assert.equal(false, parsa.isBetweenLength('23434fdfdfd', 5, 10));
+        });
+
+        it('Success - Value: 12345, minLength: 5 - maxLength: 10', function(){
+            assert.equal(true, parsa.isBetweenLength('12345', 5, 10));
+        });
+
+        it('Success - Value: 23434fdfddsdsdsfd, minLength: 5 - maxLength: 10', function(){
+            assert.equal(false, parsa.isBetweenLength('23434fdfddsdsdsfd', 5, 10));
+        });
+
+        it('Success - Value: 123, minLength: 5 - maxLength: 10', function(){
+            assert.equal(false, parsa.isBetweenLength('123', 5, 10));
+        });
+
+        it('Error - Value: null', function(){
+            assert.throws(() => parsa.isBetweenLength(), /Value not supplied./);
+        });
+
+        it('Error - Value: "test", minLength: null', function(){
+            assert.throws(() => parsa.isBetweenLength("test"), /Min Length not supplied./);
+        });
+
+        it('Error - Value: "test", minLength: 2, maxLength', function(){
+            assert.throws(() => parsa.isBetweenLength("test", 2), /Max Length not supplied./);
+        });
+    });
 });
