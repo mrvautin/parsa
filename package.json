@@ -1,6 +1,6 @@
 {
     "name": "parsa",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "description": "Parsa ya data! An all purpose module to parse, sanitize and validate data.",
     "main": "parsa.js",
     "private": false,
@@ -29,7 +29,9 @@
         "remove",
         "strip",
         "sanitize",
-        "check"
+        "check",
+        "validate object",
+        "schema"
     ],
     "author": "Mark Moffat",
     "license": "MIT",

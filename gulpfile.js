@@ -17,18 +17,26 @@ gulp.task('build', function(){
 
 gulp.task('docs', function(callback){
     const formats = require('./parsa.js').dateFormats;
-    let formatsString = "";
+    const schemaRules = require('./parsa.js').validationSchema;
 
     // loop our date formats
+    let formatsString = "";
     Object.keys(formats).forEach((value) => {
         formatsString += "- `" + value +"`\r\n";
     });
+
+     // loop our schema rules
+     let schemaString = "";
+     schemaRules.forEach((value) => {
+        schemaString += "- `" + value +"`\r\n";
+     });
 
     // read src markdown
     let readmeFile = fs.readFileSync(path.join('src', 'READMESRC.md'), 'utf-8');
 
     // inject custom data
     readmeFile = readmeFile.replace("{{supported_formats}}", formatsString);
+    readmeFile = readmeFile.replace("{{supported_validation_rules}}", schemaString);
 
     // write out markdown file
     fs.writeFileSync('README.md', readmeFile);

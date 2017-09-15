@@ -17,7 +17,34 @@
 - Checks for a secure password (8 Characters, uppercase, lowercase, number & special characters)
 - Many many more...
 
-`parsa` is only 5KB compare to `Moment.js` which is ~51KB. This is handy if using in the browser.
+#### Jump to section
+
+- [parseDate](#parseDate)
+- [validateIp](#validateIp)
+- [validateIpv6](#validateIpv6)
+- [parseQuery](#parseQuery)
+- [parseUrl](#parseUrl)
+- [validateUrl](#validateUrl)
+- [validateEmail](#validateEmail)
+- [extractNum](#extractNum)
+- [extractWords](#extractWords)
+- [extractPhone](#extractPhone)
+- [securePassword](#securePassword)
+- [removeAlpha](#removeAlpha)
+- [removeNumeric](#removeNumeric)
+- [firstUppercase](#firstUppercase)
+- [validateObject](#validateObject)
+- [isAlpha](#isAlpha)
+- [isNumeric](#isNumeric)
+- [isObject](#isObject)
+- [isArray](#isArray)
+- [isString](#isString)
+- [isFunction](#isFunction)
+- [minLength](#minLength)
+- [maxLength](#maxLength)
+- [isBetweenLength](#isBetweenLength)
+
+`parsa` is only 8KB compare to `Moment.js` which is ~51KB. This is handy if using in the browser.
 
 ## Installation
 
@@ -54,7 +81,8 @@ npm test
 gulp deploy
 ```
 
-## parseDate
+## parseDate [#](#parseDate)
+
 
 The `parseDate` function takes a date string and format string parameters and returns a Javascript `Date()` Object.
 
@@ -67,6 +95,8 @@ parsa.parseDate('20121125', 'YYYYMMDD')
 **Returns:**
 
 `Sun Nov 25 2012 01:00:00 GMT+0100 (CET)`
+
+
 
 #### Supported formats
 
@@ -113,6 +143,8 @@ parsa.validateIp('115.42.150.37')
 
 `true`
 
+
+
 ## validateIpv6
 
 The `validateIpv6` function takes an IP address string and returns a `boolean` value whether it is valid or invalid.
@@ -126,6 +158,8 @@ parsa.validateIpv6('2001:db8:3:4::')
 **Returns:**
 
 `true`
+
+
 
 ## parseQuery
 
@@ -145,6 +179,8 @@ parsa.parseQuery('http://example.com/product.php?category=4&product_id=2140&quer
     "query": "lcd+tv"
 }
 ```
+
+
 
 ## parseUrl
 
@@ -170,6 +206,8 @@ parsa.parseQuery('https://www.google.com:80/dir/1/2/search.html?arg=0-a&arg1=1-b
 }
 ```
 
+
+
 ## validateUrl
 
 The `validateUrl` function takes a URL and returns a `boolean` result.
@@ -182,6 +220,8 @@ parsa.validateUrl('https://www.google.com')
 
 **Returns:**
 `true`
+
+
 
 ## validateEmail
 
@@ -196,6 +236,8 @@ parsa.validateEmail('hi@gmail.com')
 **Returns:**
 
 `true`
+
+
 
 ## extractNum
 
@@ -216,6 +258,8 @@ parsa.extractNum('This is a10 string with3.14decimals6 and numbers.')
     '6'
 ]
 ```
+
+
 
 ## extractWords
 
@@ -238,6 +282,8 @@ parsa.extractWords('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsj
 ]
 ```
 
+
+
 ## extractPhone
 
 The `extractPhone` function takes a string and returns an `array` of matched phone numbers.
@@ -257,6 +303,8 @@ parsa.extractPhone('thisadkfdlfkdisdsstringdfjdkwithdkfdfkldsomefdfdfkdflkwordsj
     'words'
 ]
 ```
+
+
 
 ## securePassword
 
@@ -278,6 +326,8 @@ Password requirements are set to standard defaults:
 
 `true`
 
+
+
 ## removeAlpha
 
 The `removeAlpha` function takes a string and removes all non number characters.
@@ -291,6 +341,8 @@ parsa.removeAlpha('some1number')
 **Returns:**
 
 `1`
+
+
 
 ## removeNumeric
 
@@ -306,6 +358,8 @@ parsa.removeNumeric('some1number')
 
 `somenumber`
 
+
+
 ## firstUppercase
 
 The `firstUppercase` function takes a string and makes the first character of each word uppercase.
@@ -319,6 +373,107 @@ parsa.firstUppercase('this is a test string')
 **Returns:**
 
 `This Is A Test String`
+
+
+
+## validateObject
+
+The `validateObject` function takes an Object and a Schema and returns a validation result with any errors.
+
+Each schema validation requires a `name` and a `rules` array. The `name` property refers to the key in the `Object` being supplied.
+
+#### Supported schema rules
+
+- `isAlpha`
+- `isNumeric`
+- `isString`
+- `minLength`
+- `maxLength`
+- `isBetweenLength`
+- `isObject`
+- `isArray`
+- `isRequired`
+- `securePassword`
+
+
+#### Usage
+
+``` javascript
+let object = {
+    "test_number": 1234,
+    "test_string": 'abcdefg',
+    "test_array": [1, 2, 3],
+    "test_required": '',
+    "test_length": 'I am a long string'
+};
+
+let schema = [
+    {
+        "name": "test_number",
+        "rules": [
+            'isNumeric'
+        ]
+    },
+    {
+        "name": "test_string",
+        "rules": [
+            'isString',
+        ]
+    },
+    {
+        "name": "test_array",
+        "rules": [
+            'isArray'
+        ]
+    },
+    {
+        "name": "test_required",
+        "rules": [
+            'isRequired'
+        ]
+    },
+    {
+        "name": "test_length",
+        "rules": [
+            'minLength|5',
+            'maxLength|25'
+        ]
+    }
+];
+```
+
+``` javascript
+parsa.validateObject(schema, object)
+```
+
+**Returns:**
+
+With errors
+``` javascript
+{
+    errors: [
+        {
+            property: 'test_string',
+            message: 'Value is greater than the maximum length'
+        },
+        {
+            property: 'test_required',
+            message: 'Value is required'
+        }
+    ],
+    result: false
+}
+```
+
+Without errors
+``` javascript
+{
+    errors: [],
+    result: true
+}
+```
+
+
 
 ## isAlpha
 
@@ -334,6 +489,8 @@ parsa.isAlpha('this is a test string')
 
 `true`
 
+
+
 ## isNumeric
 
 The `isNumeric` function takes value and returns a `boolean` whether it contains only alpha numbers.
@@ -347,6 +504,8 @@ parsa.isNumeric(1234)
 **Returns:**
 
 `true`
+
+
 
 ## isObject
 
@@ -362,6 +521,8 @@ parsa.isObject({"test": "Object"})
 
 `true`
 
+
+
 ## isArray
 
 The `isArray` function takes value and returns a `boolean` whether it is a `Array`.
@@ -376,6 +537,8 @@ parsa.isArray(['abcd', '1234'])
 
 `true`
 
+
+
 ## isString
 
 The `isString` function takes value and returns a `boolean` whether it is a `String`.
@@ -389,6 +552,24 @@ parsa.isString('fkdlfkdl3233')
 **Returns:**
 
 `true`
+
+
+
+## isDefined
+
+The `isDefined` function takes value and returns a `boolean` whether the value is null or undefined.
+
+#### Usage
+
+``` javascript
+parsa.isDefined('')
+```
+
+**Returns:**
+
+`false`
+
+
 
 ## isFunction
 

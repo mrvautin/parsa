@@ -138,6 +138,19 @@
         throw new Error('Could not parse date.');
     }
 
+    parsa.validationSchema = [
+        'isAlpha',
+        'isNumeric',
+        'isString',
+        'minLength',
+        'maxLength',
+        'isBetweenLength',
+        'isObject',
+        'isArray',
+        'isRequired',
+        'securePassword'
+    ];
+
     parsa.longMonth = {
         'January': {
             'num': '01'
@@ -350,6 +363,115 @@
             return true;
         }
         return false;
+    };
+
+    parsa.isDefined = function (value){
+        if(typeof value !== "undefined"){
+            return true;
+        }
+        return false;
+    };
+
+    parsa.validateObject = function(schema, object){
+        let returnObject = {};
+        returnObject.errors = [];
+        Object.keys(schema).forEach(function(key){
+            let property = schema[key];
+            // check for a name
+            if(!property.name){
+                returnObject.errors.push(`Property: ${property} - doesn't have a name`);
+                return;
+            }
+
+            // check for key in object
+            if(typeof object[property.name] === 'undefined'){
+                returnObject.errors.push(`Property: ${property.name} - not found`);
+                return;
+            }
+
+            // check if key has rules (is optional)
+            if(property.rules){
+                // check key.rules is an array
+                if(!parsa.isArray(property.rules)){
+                    returnObject.errors.push({property: property, message: 'Rules is an array'});
+                    return;
+                }
+
+                property.rules.forEach(function(rule){
+                    let ruleType = rule;
+                    let ruleSplit = ruleType.split('|');
+                    if(ruleType.split('|').length > 0){
+                        ruleType = ruleType.split('|')[0];
+                    }
+                    switch(ruleType){
+                        case'isAlpha':
+                            if(!parsa.isAlpha(object[property.name])){
+                                returnObject.errors.push({property: property.name, message: 'Value is not alpha'});
+                            }
+                            break;
+                        case'isNumeric':
+                            if(!parsa.isNumeric(object[property.name])){
+                                returnObject.errors.push({property: property.name, message: 'Value is not numeric'});
+                            }
+                            break;
+                        case'isString':
+                            if(!parsa.isString(object[property.name])){
+                                returnObject.errors.push({property: property.name, message: 'Value is not a string'});
+                            }
+                            break;
+                        case'minLength':
+                            if(ruleSplit.length !== 2){
+                                returnObject.errors.push({property: ruleType, message: 'Rule is missing parameters'});
+                                break;
+                            }
+                            if(!parsa.minLength(object[property.name], ruleSplit[1])){
+                                returnObject.errors.push({property: property.name, message: 'Value is not the minimum length'});
+                            }
+                            break;
+                        case'maxLength':
+                            if(ruleSplit.length !== 2){
+                                returnObject.errors.push({property: ruleType, message: 'Rule is missing parameters'});
+                                break;
+                            }
+                            if(!parsa.maxLength(object[property.name], ruleSplit[1])){
+                                returnObject.errors.push({property: property.name, message: 'Value is greater than the maximum length'});
+                            }
+                            break;
+                        case'isBetweenLength':
+                            if(ruleSplit.length !== 3){
+                                returnObject.errors.push({property: ruleType, message: 'Rule is missing parameters'});
+                                break;
+                            }
+                            if(!parsa.isBetweenLength(object[property.name], ruleSplit[1], ruleSplit[2])){
+                                returnObject.errors.push({property: property.name, message: `Value is not between ${ruleSplit[1]} and ${ruleSplit[2]}`});
+                            }
+                            break;
+                        case'isObject':
+                            if(!parsa.isObject(object[property.name])){
+                                returnObject.errors.push({property: property.name, message: 'Value is not an Object'});
+                            }
+                            break;
+                        case'isArray':
+                            if(!parsa.isArray(object[property.name])){
+                                returnObject.errors.push({property: property.name, message: 'Value is not an Array'});
+                            }
+                            break;
+                        case'isRequired':
+                            if(object[property.name] === '' || !parsa.isDefined(object[property.name])){
+                                returnObject.errors.push({property: property.name, message:  'Value is required'});
+                            }
+                            break;
+                        case'securePassword':
+                            if(parsa.securePassword(object[property.name])){
+                                returnObject.errors.push({property: property.name, message:  'Value is not a secure password'});
+                            }
+                            break;
+                    }
+                });
+            }
+        });
+        returnObject.result = (returnObject.errors.length === 0);
+        return returnObject;
     };
 
     parsa.extractNum = function (string){

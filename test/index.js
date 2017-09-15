@@ -623,4 +623,67 @@ describe('Parsa Tests', function(){
             assert.throws(() => parsa.isBetweenLength("test", 2), /Max Length not supplied./);
         });
     });
+
+    describe('validateObject', function(){
+        let object = {
+            "test_number": 1234,
+            "test_string": 'abcdefg',
+            "test_array": [1, 2, 3],
+            "test_required": '',
+            "test_between": 'ewfdfdfddfdfdfd'
+        };
+
+        let schema = [
+            {
+                "name": "test_number",
+                "rules": [
+                    'isNumeric'
+                ]
+            },
+            {
+                "name": "test_string",
+                "rules": [
+                    'isString',
+                    'minLength|2',
+                    'maxLength|5'
+                ]
+            },
+            {
+                "name": "test_array",
+                "rules": [
+                    'isArray'
+                ]
+            },
+            {
+                "name": "test_required",
+                "rules": [
+                    'isRequired'
+                ]
+            },
+            {
+                "name": "test_between",
+                "rules": [
+                    'isBetweenLength|5|20'
+                ]
+            }
+        ];
+
+        let result = {
+            errors: [
+                {
+                    property: 'test_string',
+                    message: 'Value is greater than the maximum length'
+                },
+                {
+                    property: 'test_required',
+                    message: 'Value is required'
+                }
+            ],
+            result: false
+        };
+
+        it('Success - Value: 23434fdfd, minLength: 5 - maxLength: 10', function(){
+            assert.deepEqual(result, parsa.validateObject(schema, object));
+        });
+    });
 });
