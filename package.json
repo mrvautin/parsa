@@ -1,7 +1,7 @@
 {
     "name": "parsa",
-    "version": "0.0.11",
-    "description": "Parsa ya data! An all purpose module to parse, sanitize and validate data.",
+    "version": "0.0.12",
+    "description": "Parsa ya data! An all purpose module to parse, sanitize, extract and validate data.",
     "main": "parsa.js",
     "private": false,
     "scripts": {

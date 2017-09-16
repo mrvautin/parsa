@@ -1,8 +1,9 @@
 # parsa
 
-`parsa` is an all purpose parser which can parse or validate the following:
+`parsa` is an all purpose module which can parse, validate, extract and more!
 
-- String formatted (with format) dates into a Date Object
+- Parse a date string (with known [format](#parsedate)) into a Javascript Date Object
+- Validate an Object against a schema, including: required, min/max length, numerical, string, array and many [more](#validateobject)
 - Validates IPv4 and IPv6 (true/false)
 - Parses a URL query string into an Object
 - Parses a URL into an Object with Host, Path, Hash, Protocol etc
@@ -81,7 +82,7 @@ npm test
 gulp deploy
 ```
 
-## parseDate [#](#parseDate)
+## parseDate
 
 
 The `parseDate` function takes a date string and format string parameters and returns a Javascript `Date()` Object.
@@ -404,6 +405,10 @@ let schema = [
     }
 ];
 ```
+
+> Note: when using a schema validation which requires multiple arguments other than the value (Eg: `minLength`, `isBetweenLength` etc) you pass arguments using the `|` character as a separator. For example:
+`isBetweenLength` would look like:
+`isBetweenLength|0|16` which would validate values between 0 and 16 characters in length.
 
 ``` javascript
 parsa.validateObject(schema, object)
